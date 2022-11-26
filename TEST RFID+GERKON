@@ -1,0 +1,61 @@
+#include <SPI.h>
+#include <MFRC522.h>
+#define RST_PIN    9 
+#define SS_PIN    10
+MFRC522 mfrc522(SS_PIN, RST_PIN);
+unsigned long uidDec, uidDecTemp; 
+unsigned long timing;
+
+int led=4;
+int gerkon=2;
+
+void setup() {
+  Serial.begin(9600);
+  SPI.begin();
+  mfrc522.PCD_Init(); 
+  pinMode(gerkon,INPUT_PULLUP);
+  pinMode(led,OUTPUT);
+  
+
+}
+
+void loop() {
+  
+  int dataGerkon=digitalRead(gerkon);
+  //Serial.println(dataGerkon);
+  if(dataGerkon==1){
+    rfid();
+    //timing=millis();
+    
+    
+  }
+  else{
+    digitalWrite(led,LOW);
+  }
+}
+void rfid(){
+  
+  if ( ! mfrc522.PICC_IsNewCardPresent()) {
+    return;
+  }
+  if ( ! mfrc522.PICC_ReadCardSerial()) {
+    return;
+  }
+  uidDec = 0;
+  for (byte i = 0; i < mfrc522.uid.size; i++){
+    uidDecTemp = mfrc522.uid.uidByte[i];
+    uidDec = uidDec * 256 + uidDecTemp;
+  }
+  if(uidDec==4203512613){
+    Serial.println("welcome");
+    digitalWrite(led,LOW);
+  }
+  else{
+    ledd();
+  }
+  
+  
+}
+void ledd(){
+  digitalWrite(led,HIGH);
+}
