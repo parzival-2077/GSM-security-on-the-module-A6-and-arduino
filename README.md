@@ -3,4 +3,5 @@ https://u.easyeda.com/account/user/projects/index/detail?project=7b6f55d1d425492
 проект с платой!!!!!!
 
 
-исходники другого чела, на основе которого сделан проект
+исходники другого чела, на основе которого сделан проект:
+https://files.school-science.ru/pdf/7/5cc6a507686db.pdf
